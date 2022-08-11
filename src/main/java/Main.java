@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
 
-    public static void getFile(String fileName) {
+    public static void getFile(String fileName) throws WrongFileNameException {
 
         //this is my checked exception, where I tried to read file witch don't exists
         try (Scanner file = new Scanner(new File(fileName))) {
@@ -15,17 +15,17 @@ public class Main {
         } catch (FileNotFoundException err) {
             //idk is this way okay or not, this will print WrongFileExceptionMessage, I tried to handle this problem o this way, I doubt it is a good idea,but it is only one for now
             if (!isNameCorrect(fileName)) {
-                WrongFileNameException wrongFileNameException = new WrongFileNameException("File with name : " + fileName + " does not exists");
+                throw new WrongFileNameException("Wrong file name : " + fileName, err);
+              /*  WrongFileNameException wrongFileNameException = new WrongFileNameException("File with name : " + fileName + " does not exists");
                 System.out.println(wrongFileNameException.getMessage());
                 System.out.println(err);
-                System.out.println();
+                System.out.println();*/
                 //if we comment previous four lines and uncomment the one after this comment, that will throw
-                //throw new WrongFileNameException("Wrong file name : " + fileName, err);
             }
         }
     }
 
-    public static int setLenght() {
+    public static int setLenght() throws ArrayLenghtCantBeNegative{
         int[] array;
         System.out.println("We will create an array, please enter array lenght");
         int n = 0;
@@ -38,11 +38,13 @@ public class Main {
         } catch (NegativeArraySizeException exc) {
             //I commented this and used instance of this exception to print messages because I didn't want to that exception break app, but if uncomment line
             //after this, soo it can throw exception
-            //throw new ArrayLenghtCantBeNegative("Array lenght should be positive ", exc);
-            ArrayLenghtCantBeNegative arrayLenghtCantBeNegative = new ArrayLenghtCantBeNegative("Array with negative size can't be created", exc);
+            if (n <= 0) {
+                throw new ArrayLenghtCantBeNegative("Array lenght should be positive ", exc);
+            }
+                /* ArrayLenghtCantBeNegative arrayLenghtCantBeNegative = new ArrayLenghtCantBeNegative("Array with negative size can't be created", exc);
             System.out.println(arrayLenghtCantBeNegative.getMessage());
             System.out.println(arrayLenghtCantBeNegative.getCause());
-            System.out.println();
+            System.out.println();*/
 
         }
         if (n <= 0) {
@@ -63,7 +65,7 @@ public class Main {
     }
 
     public static void searchIndex(int[] array, int n) {
-        if (n >=1) {
+        if (n >= 1) {
             System.out.println("Enter a index of element you want to see");
             //if you enter index which you don't have in array that will cause (ArrayIndexOutOfBoundsException) unchecked exception
             int index = scanner.nextInt();
@@ -106,7 +108,7 @@ public class Main {
         getFile(fileName);
     }
 
-    private static boolean isNameCorrect(String fileName) {
+    public static boolean isNameCorrect(String fileName) {
         if (fileName.equals("trueName.txt"))
             return true;
         else
