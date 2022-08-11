@@ -13,21 +13,16 @@ public class Main {
                 file.nextLine();
             }
         } catch (FileNotFoundException err) {
-            //idk is this way okay or not, this will print WrongFileExceptionMessage, I tried to handle this problem o this way, I doubt it is a good idea,but it is only one for now
             if (!isNameCorrect(fileName)) {
                 throw new WrongFileNameException("Wrong file name : " + fileName, err);
-              /*  WrongFileNameException wrongFileNameException = new WrongFileNameException("File with name : " + fileName + " does not exists");
-                System.out.println(wrongFileNameException.getMessage());
-                System.out.println(err);
-                System.out.println();*/
-                //if we comment previous four lines and uncomment the one after this comment, that will throw
+
             }
         }
     }
 
-    public static int setLenght() throws ArrayLenghtCantBeNegative{
+    public static int setLenght() throws ArrayLenghtCantBeNegative {
         int[] array;
-        System.out.println("We will create an array, please enter array lenght");
+        System.out.println("We will create an array, please enter array length");
         int n = 0;
         try {
 
@@ -36,15 +31,10 @@ public class Main {
             array = new int[n];
             return n;
         } catch (NegativeArraySizeException exc) {
-            //I commented this and used instance of this exception to print messages because I didn't want to that exception break app, but if uncomment line
-            //after this, soo it can throw exception
             if (n <= 0) {
-                throw new ArrayLenghtCantBeNegative("Array lenght should be positive ", exc);
+                throw new ArrayLenghtCantBeNegative("Array length should be positive ", exc);
             }
-                /* ArrayLenghtCantBeNegative arrayLenghtCantBeNegative = new ArrayLenghtCantBeNegative("Array with negative size can't be created", exc);
-            System.out.println(arrayLenghtCantBeNegative.getMessage());
-            System.out.println(arrayLenghtCantBeNegative.getCause());
-            System.out.println();*/
+
 
         }
         if (n <= 0) {
@@ -54,7 +44,7 @@ public class Main {
         return n;
     }
 
-    public static void addValues(int n, int[] array) {
+    public static int[] addValues(int n, int[] array) {
         if (n >= 1) {
             System.out.println("Enter array values");
             for (int i = 0; i < n; i++) {
@@ -62,6 +52,7 @@ public class Main {
                 array[i] = scanner.nextInt();
             }
         }
+        return array;
     }
 
     public static void searchIndex(int[] array, int n) {
@@ -96,6 +87,7 @@ public class Main {
             Class.forName("NonExistenceClass");
             ClassLoader.getSystemClassLoader().loadClass("NonExistenceClass");
         } catch (ClassNotFoundException e) {
+
             System.out.println(e);
             System.out.println("This class don't exists");
         }
@@ -120,7 +112,7 @@ public class Main {
         int num = 1;
         while (num == 1) {
             System.out.println("1.Enter to see custom checked exception");
-            System.out.println("2.Enter to create array and see custom unchecked exception (if you enter negative number for array lenght), and also other one " +
+            System.out.println("2.Enter to create array and see custom unchecked exception (if you enter negative number for array length), and also other one " +
                     "unchecked exception if you enter in index search index which you don't have in that array ");
             System.out.println("3.Enter to see checked exception");
             int num2 = scanner.nextInt();
