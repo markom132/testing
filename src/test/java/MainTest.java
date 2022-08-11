@@ -3,7 +3,6 @@ import org.junit.jupiter.api.*;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -71,8 +70,19 @@ class MainTest {
             InputStream in = new ByteArrayInputStream(input.getBytes());
             System.setIn(in);
             String expected = "trueName.txt";
-            assertEquals(expected, Methods.readFile());
+            assertEquals(expected, methods.readFile());
             logger.log(Level.INFO, "Ended test getting file");
+        }
+
+        @Test
+        @DisplayName("Test read file")
+        void testGetFile3() throws WrongFileNameException {
+            String input = "trueName.txt";
+            InputStream in = new ByteArrayInputStream(input.getBytes());
+            System.setIn(in);
+            String expected = "trueName.txt";
+            String actual = methods.getFile(input);
+            assertEquals(expected, actual);
         }
 
         @AfterAll
@@ -94,22 +104,13 @@ class MainTest {
             //I can't call a method for setting array length, but I will test array with entering positive and negative values
         void testArrayLenghtPositive() {
             logger.log(Level.INFO, "Test set array length");
-            int expected = 2;
-            int[] array = new int[expected];
-            assertEquals(array.length, expected);
+            int n = 2;
+            int[] expected = new int[n];
+            int[] actual = methods.setArray(n);
+            assertEquals(actual.length, expected.length);
             logger.log(Level.INFO, "Ended test set array length");
         }
 
-        // I needed this part of code from method here to try it
-        private void addL(int n) {
-            try {
-                int[] array = new int[n];
-            } catch (NegativeArraySizeException exc) {
-                if (n <= 0) {
-                    throw new ArrayLenghtCantBeNegative("Array length should be positive ", exc);
-                }
-            }
-        }
 
         @Test
         @DisplayName("Started test set array length")
@@ -118,8 +119,13 @@ class MainTest {
             logger.log(Level.INFO, "Test set array length3");
             int n = 2;
             int expected[] = new int[n];
-            int[] actual = methods.setArray(n);
-            assertEquals(actual.length, expected.length);
+            String input = String.valueOf(2);
+            InputStream in = new ByteArrayInputStream(input.getBytes());
+            System.setIn(in);
+            int actual = methods.setLenght();
+            assertEquals(expected.length, actual);
+            int actual2 = methods.setArray(actual).length;
+            assertEquals(actual,actual2);
             logger.log(Level.INFO, "Ended test set array length3");
         }
 
@@ -127,11 +133,25 @@ class MainTest {
         @DisplayName("Test negative array can't exists")
         void testArrayLenghtNegative() {
             logger.log(Level.INFO, "Start test negative array can't exists");
-            int n = -1;
-            boolean itsOk = true;
-            assumeTrue(itsOk);
-            assertThrows(ArrayLenghtCantBeNegative.class, () -> addL(n), "Array size can't be negative ");
+            String input = String.valueOf(-2);
+            InputStream in = new ByteArrayInputStream(input.getBytes());
+            System.setIn(in);
+            assertThrows(ArrayLenghtCantBeNegative.class, () -> methods.setLenght(), "Array size can't be negative ");
             logger.log(Level.INFO, "Ended test negative array can't exists");
+        }
+
+        @Test
+        @DisplayName("Test adding values to array")
+        void testAddValues() {
+            int n = 1;
+            int[] array = new int[n];
+            int[] expected = new int[n];
+            String input = String.valueOf(1);
+            InputStream in = new ByteArrayInputStream(input.getBytes());
+            System.setIn(in);
+            int[] actual = methods.addValues(n, array);
+            assertEquals(expected.length, actual.length);
+
         }
 
         @Test
@@ -156,19 +176,10 @@ class MainTest {
             int index = 3;
             int[] array = new int[]{1, 2, 3};
             int n = 2;
-            assertThrows(ArrayIndexOutOfBoundsException.class, () -> methods.searchIndex(array,n,index), "You can't search negative numbers");
+            assertThrows(ArrayIndexOutOfBoundsException.class, () -> methods.searchIndex(array, n, index), "You can't search negative numbers");
             logger.log(Level.INFO, "Ended test search index which array don't have");
         }
 
-        private void searchArr(int index) throws ArrayIndexOutOfBoundsException {
-            int[] array = new int[]{1, 2, 3};
-            try {
-                System.out.println("Value of selected index is: " + array[index]);
-
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ArrayIndexOutOfBoundsException("You don't have this index in array  " + e);
-            }
-        }
 
         @AfterAll
         static void initEndThird() {

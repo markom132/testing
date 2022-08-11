@@ -21,15 +21,19 @@ public class Methods {
         return fileName;
     }
 
-    public static void nonExistanceClass() throws ClassNotFoundException {
+    public static String nonExistanceClass() throws ClassNotFoundException {
 //this is one example of checked exception
+        String name;
         try {
-            Class.forName("NonExistenceClass");
-            ClassLoader.getSystemClassLoader().loadClass("NonExistenceClass");
+            name = "name";
+            Class.forName(name);
+            ClassLoader.getSystemClassLoader().loadClass(name);
+            return name;
         } catch (ClassNotFoundException e) {
             throw new ClassNotFoundException();
 
         }
+
     }
 
     public static int[] setArray(int n) {
@@ -52,15 +56,16 @@ public class Methods {
                 value = array[index];
 
             } catch (ArrayIndexOutOfBoundsException e) {
-               throw new ArrayIndexOutOfBoundsException();
+                throw new ArrayIndexOutOfBoundsException();
             }
         }
 
         return value;
     }
 
-    public static int[] addValues(int n, int[] array, Scanner scanner) {
+    public static int[] addValues(int n, int[] array) {
         if (n >= 1) {
+            Scanner scanner = new Scanner(System.in);
             System.out.println("Enter array values");
             for (int i = 0; i < n; i++) {
                 System.out.print("Insert value on index " + (i) + ": ");
@@ -70,7 +75,8 @@ public class Methods {
         return array;
     }
 
-    public static int setLenght(Scanner scanner) throws ArrayLenghtCantBeNegative {
+    public static int setLenght() throws ArrayLenghtCantBeNegative {
+        Scanner scanner = new Scanner(System.in);
         int[] array;
         System.out.println("We will create an array, please enter array length");
         int n = 0;
@@ -87,14 +93,12 @@ public class Methods {
 
 
         }
-        if (n <= 0) {
-            n = n * 0;
-            return n;
-        }
+
+
         return n;
     }
 
-    public static void getFile(String fileName) throws WrongFileNameException {
+    public static String getFile(String fileName) throws WrongFileNameException {
 
 //this is my checked exception, where I tried to read file witch don't exists
         try (Scanner file = new Scanner(new File(fileName))) {
@@ -107,5 +111,6 @@ public class Methods {
 
             }
         }
+        return fileName;
     }
 }
