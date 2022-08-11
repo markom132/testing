@@ -3,7 +3,5 @@ public class WrongFileNameException extends Exception{
         super(error , throwable);
     }
 
-    public WrongFileNameException(String message) {
-        super(message);
-    }
+
 }
