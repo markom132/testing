@@ -47,10 +47,12 @@ class MainTest {
         @Test
         @DisplayName("Test file name 2")
         void testFileName2() {
+            logger.log(Level.INFO, "Started test file name 2");
             boolean expected = true;
             String fileName = "fakeName.txt";
             boolean actual = methods.isNameCorrect(fileName);
             assertNotEquals(expected, actual, "The failure is on test file name method");
+            logger.log(Level.INFO, "Ended test file name 2");
         }
 
         @Test
@@ -77,12 +79,14 @@ class MainTest {
         @Test
         @DisplayName("Test read file")
         void testGetFile3() throws WrongFileNameException {
+            logger.log(Level.INFO, "Started test get file 3");
             String input = "trueName.txt";
             InputStream in = new ByteArrayInputStream(input.getBytes());
             System.setIn(in);
             String expected = "trueName.txt";
             String actual = methods.getFile(input);
             assertEquals(expected, actual);
+            logger.log(Level.INFO, "Ended test get file 3");
         }
 
         @AfterAll
@@ -125,7 +129,7 @@ class MainTest {
             int actual = methods.setLenght();
             assertEquals(expected.length, actual);
             int actual2 = methods.setArray(actual).length;
-            assertEquals(actual,actual2);
+            assertEquals(actual, actual2);
             logger.log(Level.INFO, "Ended test set array length3");
         }
 
@@ -143,6 +147,7 @@ class MainTest {
         @Test
         @DisplayName("Test adding values to array")
         void testAddValues() {
+            logger.log(Level.INFO, "Started test adding values to array");
             int n = 1;
             int[] array = new int[n];
             int[] expected = new int[n];
@@ -151,7 +156,7 @@ class MainTest {
             System.setIn(in);
             int[] actual = methods.addValues(n, array);
             assertEquals(expected.length, actual.length);
-
+            logger.log(Level.INFO, "Ended test adding values to array");
         }
 
         @Test
@@ -190,7 +195,9 @@ class MainTest {
     @Test
     @DisplayName("NonExistentClass")
     void nonExistent() {
+        logger.log(Level.INFO, "Started test non-existent class");
         assertThrows(ClassNotFoundException.class, () -> methods.nonExistanceClass(), "This class don't exists");
+        logger.log(Level.INFO, "Ended test non-existent class");
     }
 
     @AfterAll
