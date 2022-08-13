@@ -1,10 +1,9 @@
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws WrongFileNameException, ClassNotFoundException {
         Scanner scanner = new Scanner(System.in);
+        Methods methods = new Methods();
         int num = 1;
         while (num == 1) {
             System.out.println("1.Enter to see custom checked exception");
@@ -14,16 +13,16 @@ public class Main {
             int num2 = scanner.nextInt();
             if (num2 == 1) {
 
-                Methods.readFile();
+                 methods.readFile();
             } else if (num2 == 2) {
-                int n = Methods.setLenght();
-                Methods.setArray(n);
-                int[] d = Methods.setArray(n);
-                Methods.addValues(n, d);
+                int n = methods.setLength();
+                methods.setArray(n);
+                int[] d = methods.setArray(n);
+                methods.addValues(n, d);
                 System.out.println("Enter a index of element you want to see");
 //if you enter index which you don't have in array that will cause (ArrayIndexOutOfBoundsException) unchecked exception
                int index = scanner.nextInt();
-                Methods.searchIndex(d, n, index);
+                methods.searchIndex(d, n, index);
             } else if (num2 == 3) {
                 System.out.println("Enter class name");
                 String s = scanner.nextLine();

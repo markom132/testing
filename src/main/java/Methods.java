@@ -6,14 +6,15 @@ import java.util.Scanner;
 public class Methods {
 
 
-    public static boolean isNameCorrect(String fileName) {
-        if (fileName.equals("trueName.txt"))
+    public  boolean isNameCorrect(String fileName) {
+        String name = "trueName.txt";
+        if (fileName.equals(name))
             return true;
         else
             return false;
     }
 
-    public static String readFile() throws WrongFileNameException {
+    public  String readFile() throws WrongFileNameException {
         System.out.println("Enter any string to start custom unchecked exception");
         Scanner scanner = new Scanner(System.in);
         String fileName = scanner.nextLine();
@@ -36,7 +37,7 @@ public class Methods {
 
     }
 
-    public static int[] setArray(int n) {
+    public  int[] setArray(int n) {
 
         int[] array = new int[n];
 
@@ -45,7 +46,7 @@ public class Methods {
 
     }
 
-    public static int searchIndex(int[] array, int n, int index) {
+    public  int searchIndex(int[] array, int n, int index) {
         int value = 0;
         if (n >= 1) {
 
@@ -63,7 +64,7 @@ public class Methods {
         return value;
     }
 
-    public static int[] addValues(int n, int[] array) {
+    public  int[] addValues(int n, int[] array) {
         if (n >= 1) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter array values");
@@ -75,7 +76,7 @@ public class Methods {
         return array;
     }
 
-    public static int setLenght() throws ArrayLenghtCantBeNegative {
+    public  int setLength() throws ArrayLengthCantBeNegative {
         Scanner scanner = new Scanner(System.in);
         int[] array;
         System.out.println("We will create an array, please enter array length");
@@ -88,7 +89,7 @@ public class Methods {
             return n;
         } catch (NegativeArraySizeException exc) {
             if (n <= 0) {
-                throw new ArrayLenghtCantBeNegative("Array length should be positive ", exc);
+                throw new ArrayLengthCantBeNegative("Array length should be positive ", exc);
             }
 
 
@@ -98,7 +99,7 @@ public class Methods {
         return n;
     }
 
-    public static String getFile(String fileName) throws WrongFileNameException {
+    public  String getFile(String fileName) throws WrongFileNameException {
 
 //this is my checked exception, where I tried to read file witch don't exists
         try (Scanner file = new Scanner(new File(fileName))) {

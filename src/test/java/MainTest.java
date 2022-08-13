@@ -1,17 +1,30 @@
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.extension.Extensions;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static org.mockito.Mockito.mock;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
+
+import org.mockito.junit.*;
+import org.junit.jupiter.api.extension.ExtendWith;
+
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Running MainTest")
 class MainTest {
     Methods methods;
+    Methods mockObj;
 
     static final Logger logger = Logger.getLogger(MainTest.class.getName());
 
@@ -23,7 +36,11 @@ class MainTest {
     @BeforeEach
     void init() {
         methods = new Methods();
+        mockObj = mock(Methods.class);
+
+
     }
+
 
     @Nested
     @DisplayName("Running file tests")
@@ -43,6 +60,18 @@ class MainTest {
             assertEquals(expected, actual, "The failure is on test file name method");
             logger.log(Level.INFO, "Ended test file name");
         }
+        @Test
+        @DisplayName("Mock test file name")
+        //mock test
+        void mockTestFileName() {
+            logger.log(Level.INFO, "Started mock test file name");
+            String fileName = "trueName.txt";
+            when(mockObj.isNameCorrect(fileName)).thenReturn(true);
+            boolean expected = true;
+            boolean actual = mockObj.isNameCorrect(fileName);
+            assertEquals(expected, actual, "The failure is on mock test file name method");
+            logger.log(Level.INFO, "Ended mock test file name");
+        }
 
         @Test
         @DisplayName("Test file name 2")
@@ -54,6 +83,8 @@ class MainTest {
             assertNotEquals(expected, actual, "The failure is on test file name method");
             logger.log(Level.INFO, "Ended test file name 2");
         }
+
+
 
         @Test
         @DisplayName("Test getting file")
@@ -104,16 +135,21 @@ class MainTest {
         }
 
         @Test
-        @DisplayName("Started test set array length")
-            //I can't call a method for setting array length, but I will test array with entering positive and negative values
-        void testArrayLenghtPositive() {
-            logger.log(Level.INFO, "Test set array length");
-            int n = 2;
-            int[] expected = new int[n];
-            int[] actual = methods.setArray(n);
-            assertEquals(actual.length, expected.length);
-            logger.log(Level.INFO, "Ended test set array length");
+        @DisplayName("Started mock test set array length")
+           //mock test
+        void testArrayLengthPositive() {
+            logger.log(Level.INFO, "Mock test set array length");
+            int expected = 2;
+            String input = String.valueOf(2);
+            InputStream in = new ByteArrayInputStream(input.getBytes());
+            System.setIn(in);
+            when(mockObj.setLength()).thenCallRealMethod();
+            int actual = mockObj.setLength();
+            assertEquals(expected,actual);
+            logger.log(Level.INFO, "Mock test set array length");
+
         }
+
 
 
         @Test
@@ -126,7 +162,7 @@ class MainTest {
             String input = String.valueOf(2);
             InputStream in = new ByteArrayInputStream(input.getBytes());
             System.setIn(in);
-            int actual = methods.setLenght();
+            int actual = methods.setLength();
             assertEquals(expected.length, actual);
             int actual2 = methods.setArray(actual).length;
             assertEquals(actual, actual2);
@@ -140,7 +176,7 @@ class MainTest {
             String input = String.valueOf(-2);
             InputStream in = new ByteArrayInputStream(input.getBytes());
             System.setIn(in);
-            assertThrows(ArrayLenghtCantBeNegative.class, () -> methods.setLenght(), "Array size can't be negative ");
+            assertThrows(ArrayLengthCantBeNegative.class, () -> methods.setLength(), "Array size can't be negative ");
             logger.log(Level.INFO, "Ended test negative array can't exists");
         }
 
