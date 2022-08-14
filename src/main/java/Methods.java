@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Methods {
 
 
-    public  boolean isNameCorrect(String fileName) {
+    public boolean isNameCorrect(String fileName) {
         String name = "trueName.txt";
         if (fileName.equals(name))
             return true;
@@ -14,7 +14,7 @@ public class Methods {
             return false;
     }
 
-    public  String readFile() throws WrongFileNameException {
+    public String readFile() throws WrongFileNameException {
         System.out.println("Enter any string to start custom unchecked exception");
         Scanner scanner = new Scanner(System.in);
         String fileName = scanner.nextLine();
@@ -31,13 +31,13 @@ public class Methods {
             ClassLoader.getSystemClassLoader().loadClass(name);
             return name;
         } catch (ClassNotFoundException e) {
-            throw new ClassNotFoundException();
+            throw new ClassNotFoundException("Class with entered name don't exists : \n" + e);
 
         }
 
     }
 
-    public  int[] setArray(int n) {
+    public int[] setArray(int n) {
 
         int[] array = new int[n];
 
@@ -46,7 +46,7 @@ public class Methods {
 
     }
 
-    public  int searchIndex(int[] array, int n, int index) {
+    public int searchIndex(int[] array, int n, int index) throws ArrayIndexOutOfBoundsException {
         int value = 0;
         if (n >= 1) {
 
@@ -57,14 +57,14 @@ public class Methods {
                 value = array[index];
 
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ArrayIndexOutOfBoundsException();
+                throw new ArrayIndexOutOfBoundsException("Entered index don't exist in this array : \n" + e);
             }
         }
 
         return value;
     }
 
-    public  int[] addValues(int n, int[] array) {
+    public int[] addValues(int n, int[] array) {
         if (n >= 1) {
             Scanner scanner = new Scanner(System.in);
             System.out.println("Enter array values");
@@ -76,7 +76,7 @@ public class Methods {
         return array;
     }
 
-    public  int setLength() throws ArrayLengthCantBeNegative {
+    public int setLength() throws ArrayLengthCantBeNegative {
         Scanner scanner = new Scanner(System.in);
         int[] array;
         System.out.println("We will create an array, please enter array length");
@@ -86,11 +86,9 @@ public class Methods {
 
             n = scanner.nextInt();
             array = new int[n];
-            return n;
+
         } catch (NegativeArraySizeException exc) {
-            if (n <= 0) {
-                throw new ArrayLengthCantBeNegative("Array length should be positive ", exc);
-            }
+            throw new ArrayLengthCantBeNegative("Array length should be positive ", exc);
 
 
         }
@@ -99,12 +97,11 @@ public class Methods {
         return n;
     }
 
-    public  String getFile(String fileName) throws WrongFileNameException {
+    public String getFile(String fileName) throws WrongFileNameException {
 
-//this is my checked exception, where I tried to read file witch don't exists
         try (Scanner file = new Scanner(new File(fileName))) {
             if (file.hasNextLine()) {
-                file.nextLine();
+                System.out.println(file.nextLine());
             }
         } catch (FileNotFoundException err) {
             if (!isNameCorrect(fileName)) {

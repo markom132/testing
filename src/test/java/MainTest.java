@@ -50,19 +50,11 @@ class MainTest {
             logger.log(Level.INFO, "Running tests in FileTests subclass");
         }
 
-        @Test
-        @DisplayName("Test file name")
-        void testFileName() {
-            logger.log(Level.INFO, "Started test file name");
-            String fileName = "trueName.txt";
-            boolean expected = true;
-            boolean actual = methods.isNameCorrect(fileName);
-            assertEquals(expected, actual, "The failure is on test file name method");
-            logger.log(Level.INFO, "Ended test file name");
-        }
+
+
         @Test
         @DisplayName("Mock test file name")
-        //mock test
+            //mock test
         void mockTestFileName() {
             logger.log(Level.INFO, "Started mock test file name");
             String fileName = "trueName.txt";
@@ -73,52 +65,30 @@ class MainTest {
             logger.log(Level.INFO, "Ended mock test file name");
         }
 
-        @Test
-        @DisplayName("Test file name 2")
-        void testFileName2() {
-            logger.log(Level.INFO, "Started test file name 2");
-            boolean expected = true;
-            String fileName = "fakeName.txt";
-            boolean actual = methods.isNameCorrect(fileName);
-            assertNotEquals(expected, actual, "The failure is on test file name method");
-            logger.log(Level.INFO, "Ended test file name 2");
-        }
-
 
 
         @Test
-        @DisplayName("Test getting file")
+        @DisplayName("Test getting file exception")
         void testGetFile() {
             logger.log(Level.INFO, "Started test getting file");
             String fileName = "fakeName";
-            assertThrows(WrongFileNameException.class, () -> methods.getFile(fileName), "Any file name except 'someName.txt' should throw");
-            logger.log(Level.INFO, "Ended test getting file");
+            assertThrows(WrongFileNameException.class, () -> methods.getFile(fileName), "Any file name except 'trueName.txt' should throw");
+            logger.log(Level.INFO, "Ended test getting file exception");
         }
 
         @Test
-        @DisplayName("Test getting file")
+        @DisplayName("Test getting file ")
         void testGetFile2() throws WrongFileNameException {
-            logger.log(Level.INFO, "Started test getting file");
+            logger.log(Level.INFO, "Started test getting file ");
             String input = "trueName.txt";
             InputStream in = new ByteArrayInputStream(input.getBytes());
             System.setIn(in);
             String expected = "trueName.txt";
             assertEquals(expected, methods.readFile());
-            logger.log(Level.INFO, "Ended test getting file");
+            logger.log(Level.INFO, "Ended test getting file ");
         }
 
-        @Test
-        @DisplayName("Test read file")
-        void testGetFile3() throws WrongFileNameException {
-            logger.log(Level.INFO, "Started test get file 3");
-            String input = "trueName.txt";
-            InputStream in = new ByteArrayInputStream(input.getBytes());
-            System.setIn(in);
-            String expected = "trueName.txt";
-            String actual = methods.getFile(input);
-            assertEquals(expected, actual);
-            logger.log(Level.INFO, "Ended test get file 3");
-        }
+
 
         @AfterAll
         static void initEndSecond() {
@@ -136,7 +106,7 @@ class MainTest {
 
         @Test
         @DisplayName("Started mock test set array length")
-           //mock test
+            //mock test
         void testArrayLengthPositive() {
             logger.log(Level.INFO, "Mock test set array length");
             int expected = 2;
@@ -145,20 +115,18 @@ class MainTest {
             System.setIn(in);
             when(mockObj.setLength()).thenCallRealMethod();
             int actual = mockObj.setLength();
-            assertEquals(expected,actual);
+            assertEquals(expected, actual);
             logger.log(Level.INFO, "Mock test set array length");
 
         }
 
 
-
         @Test
         @DisplayName("Started test set array length")
-            //I can't call a method for setting array length, but I will test array with entering positive and negative values
-        void testSetArrayLenghtPositive() {
+        void testSetArrayLengthPositive() {
             logger.log(Level.INFO, "Test set array length3");
             int n = 2;
-            int expected[] = new int[n];
+            int[] expected = new int[n];
             String input = String.valueOf(2);
             InputStream in = new ByteArrayInputStream(input.getBytes());
             System.setIn(in);
@@ -171,7 +139,7 @@ class MainTest {
 
         @Test
         @DisplayName("Test negative array can't exists")
-        void testArrayLenghtNegative() {
+        void testArrayLengthNegative() {
             logger.log(Level.INFO, "Start test negative array can't exists");
             String input = String.valueOf(-2);
             InputStream in = new ByteArrayInputStream(input.getBytes());

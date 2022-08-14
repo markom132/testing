@@ -13,7 +13,7 @@ public class Main {
             int num2 = scanner.nextInt();
             if (num2 == 1) {
 
-                 methods.readFile();
+                methods.readFile();
             } else if (num2 == 2) {
                 int n = methods.setLength();
                 methods.setArray(n);
@@ -21,7 +21,7 @@ public class Main {
                 methods.addValues(n, d);
                 System.out.println("Enter a index of element you want to see");
 //if you enter index which you don't have in array that will cause (ArrayIndexOutOfBoundsException) unchecked exception
-               int index = scanner.nextInt();
+                int index = scanner.nextInt();
                 methods.searchIndex(d, n, index);
             } else if (num2 == 3) {
                 System.out.println("Enter class name");
